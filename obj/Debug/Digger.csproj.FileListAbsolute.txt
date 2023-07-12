@@ -1,0 +1,17 @@
+C:\Mytki\DiggerTask\bin\Debug\Images\Digger.png
+C:\Mytki\DiggerTask\bin\Debug\Images\Gold.png
+C:\Mytki\DiggerTask\bin\Debug\Images\Monster.png
+C:\Mytki\DiggerTask\bin\Debug\Images\Sack.png
+C:\Mytki\DiggerTask\bin\Debug\Images\Terrain.png
+C:\Mytki\DiggerTask\bin\Debug\11-digger.exe.config
+C:\Mytki\DiggerTask\bin\Debug\11-digger.exe
+C:\Mytki\DiggerTask\bin\Debug\11-digger.pdb
+C:\Mytki\DiggerTask\bin\Debug\nunit.framework.dll
+C:\Mytki\DiggerTask\obj\Debug\Digger.csproj.AssemblyReference.cache
+C:\Mytki\DiggerTask\obj\Debug\Digger.csproj.SuggestedBindingRedirects.cache
+C:\Mytki\DiggerTask\obj\Debug\Digger.Properties.Resources.resources
+C:\Mytki\DiggerTask\obj\Debug\Digger.csproj.GenerateResource.cache
+C:\Mytki\DiggerTask\obj\Debug\Digger.csproj.CoreCompileInputs.cache
+C:\Mytki\DiggerTask\obj\Debug\Digger.csproj.CopyComplete
+C:\Mytki\DiggerTask\obj\Debug\11-digger.exe
+C:\Mytki\DiggerTask\obj\Debug\11-digger.pdb

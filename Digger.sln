@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digger", "Digger.csproj", "{610D5A45-09EB-4839-B6E5-D8601DB31897}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProgect", "Tests\TestProgect\TestProgect.csproj", "{8EFE8E25-1368-43AA-9E3C-1D956FA6006A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{610D5A45-09EB-4839-B6E5-D8601DB31897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{610D5A45-09EB-4839-B6E5-D8601DB31897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{610D5A45-09EB-4839-B6E5-D8601DB31897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{610D5A45-09EB-4839-B6E5-D8601DB31897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EFE8E25-1368-43AA-9E3C-1D956FA6006A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EFE8E25-1368-43AA-9E3C-1D956FA6006A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EFE8E25-1368-43AA-9E3C-1D956FA6006A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EFE8E25-1368-43AA-9E3C-1D956FA6006A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B05721BA-0BC1-401F-BE01-F15E60C61B1A}
+	EndGlobalSection
+EndGlobal
