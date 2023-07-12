@@ -181,6 +181,7 @@ namespace Digger
 
     public class Monster : ICreature
     {
+        public Cell monsterCell;
         public Cell GetTargetCell()
         {
             for (int x = 0; x < Game.MapWidth; x++)
@@ -192,23 +193,23 @@ namespace Digger
 
         public bool SeesTarget(Cell cell)
         {
-            return cell.X >= 0 && Game.Map[cell.X, cell.Y] != null 
+            return cell.X >= 0 && Game.Map[cell.X, cell.Y] != null
                 && Game.Map[cell.X, cell.Y].GetType().Name == "Player";
         }
 
-        public CreatureCommand[] GetFastestRoute(CreatureCommand[] commands = null)
+        public CreatureCommand GetFastestRouteCommand(Cell target)
         {
-            if (commands == null)
-                commands = new CreatureCommand[Game.MapHeight * Game.MapWidth];
-            return commands;
+            if ( )
         }
 
         public CreatureCommand Act(int x, int y)
         {
             var command = new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
             var targetCell = this.GetTargetCell();
-            //if (!Game.IsOver && this.SeesTarget(targetCell))
-                
+            this.monsterCell.X = x;
+            this.monsterCell.Y = y;
+            if (!Game.IsOver && this.SeesTarget(targetCell))
+                command = GetFastestRouteCommand(targetCell);
             return command;
         }
 
