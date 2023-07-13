@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,21 +13,27 @@ using System.Windows.Media;
 namespace Digger
 {
     //Напишите здесь классы Player, Terrain и другие.
+    public static class ImageFileName
+    {
+        public static void AreEqual(string expected, string actual)
+        {
+            if (actual != expected)
+                throw new Exception($"The image file name is wrong, is {actual} but should be {expected}");
+        }    
+    }
+
     public class Terrain : ICreature
     {
         public string GetImageFileName()
         {
             var actualName = $"{this.GetType().Name}.png";
-            var expectedName = "Terrain.png";
-            if (actualName != expectedName)
-                throw new Exception($"The image file name is wrong, is {actualName} but should be {expectedName}");
+            ImageFileName.AreEqual("Terrain.png", actualName);
             return actualName;
         }
 
         public CreatureCommand Act(int x, int y)
         {
-            var command = new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
-            return command;
+            return new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
         }
 
         public int GetDrawingPriority()
@@ -83,7 +90,7 @@ namespace Digger
 
         public bool DeadInConflict(ICreature creature)
         {
-            string creatureName = creature.GetType().Name;
+            var creatureName = creature.GetType().Name;
             return creatureName == "Sack" || creatureName == "Monster";
         }
     }
@@ -132,9 +139,7 @@ namespace Digger
         public string GetImageFileName()
         {
             var actualName = $"{this.GetType().Name}.png";
-            var expectedName = "Sack.png";
-            if (actualName != expectedName)
-                throw new Exception($"The image file name is wrong, is {actualName} but should be {expectedName}");
+            ImageFileName.AreEqual("Sack.png", actualName);
             return actualName;
         }
     }
@@ -144,15 +149,13 @@ namespace Digger
         public string GetImageFileName()
         {
             var actualName = $"{this.GetType().Name}.png";
-            var expectedName = "Gold.png";
-            if (actualName != expectedName)
-                throw new Exception($"The image file name is wrong, is {actualName} but should be {expectedName}");
+            ImageFileName.AreEqual("Gold.png", actualName);
             return actualName;
         }
 
         public bool DeadInConflict(ICreature creature)
         {
-            string creatureName = creature.GetType().Name;
+            var creatureName = creature.GetType().Name;
             if ( creatureName == "Player")
             {
                 Game.Scores += 10;
@@ -168,8 +171,7 @@ namespace Digger
 
         public CreatureCommand Act(int x, int y)
         {
-            var command = new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
-            return command;
+            return new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
         }
     }
 
@@ -181,7 +183,7 @@ namespace Digger
 
     public class Monster : ICreature
     {
-        public Cell monsterCell;
+        public Cell Cell;
         public Cell GetTargetCell()
         {
             for (int x = 0; x < Game.MapWidth; x++)
@@ -197,34 +199,56 @@ namespace Digger
                 && Game.Map[cell.X, cell.Y].GetType().Name == "Player";
         }
 
-        public CreatureCommand GetFastestRouteCommand(Cell target)
+        public CreatureCommand GetCommandForMonster(Cell targetCell)
         {
-            if ( )
+            var command = new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
+            if (this.Cell.Y + 1 < Game.MapHeight
+                && targetCell.Y > this.Cell.Y
+                && (Game.Map[this.Cell.X, this.Cell.Y + 1] == null
+                || Game.Map[this.Cell.X, this.Cell.Y + 1].GetType().Name == "Gold"
+                || Game.Map[this.Cell.X, this.Cell.Y + 1].GetType().Name == "Player"))
+                command.DeltaY++;
+            else if (this.Cell.Y > 0
+                && targetCell.Y < this.Cell.Y
+                && (Game.Map[this.Cell.X, this.Cell.Y - 1] == null
+                || Game.Map[this.Cell.X, this.Cell.Y - 1].GetType().Name == "Gold"
+                || Game.Map[this.Cell.X, this.Cell.Y - 1].GetType().Name == "Player"))
+                command.DeltaY--;
+            else if (this.Cell.X < Game.MapWidth
+                && targetCell.X > this.Cell.X
+                && (Game.Map[this.Cell.X + 1, this.Cell.Y] == null
+                || Game.Map[this.Cell.X + 1, this.Cell.Y].GetType().Name == "Gold"
+                || Game.Map[this.Cell.X + 1, this.Cell.Y].GetType().Name == "Player"))
+                command.DeltaX++;
+            else if (this.Cell.X > 0
+                && targetCell.X < this.Cell.X
+                && (Game.Map[this.Cell.X - 1, this.Cell.Y] == null
+                || Game.Map[this.Cell.X - 1, this.Cell.Y].GetType().Name == "Gold"
+                || Game.Map[this.Cell.X - 1, this.Cell.Y].GetType().Name == "Player"))
+                command.DeltaX--;
+            return command;
         }
 
         public CreatureCommand Act(int x, int y)
         {
             var command = new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
             var targetCell = this.GetTargetCell();
-            this.monsterCell.X = x;
-            this.monsterCell.Y = y;
-            if (!Game.IsOver && this.SeesTarget(targetCell))
-                command = GetFastestRouteCommand(targetCell);
+            this.Cell = new Cell { X = x, Y = y };
+            if (this.SeesTarget(targetCell))
+                command = GetCommandForMonster(targetCell);
             return command;
         }
 
         public bool DeadInConflict(ICreature creature)
         {
-            string creatureName = creature.GetType().Name;
+            var creatureName = creature.GetType().Name;
             return creatureName == "Sack" || creatureName == "Monster";
         }
 
         public string GetImageFileName()
         {
             var actualName = $"{this.GetType().Name}.png";
-            var expectedName = "Monster.png";
-            if (actualName != expectedName)
-                throw new Exception($"The image file name is wrong, is {actualName} but should be {expectedName}");
+            ImageFileName.AreEqual("Monster.png", actualName);
             return actualName;
         }
 
